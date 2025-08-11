@@ -1,0 +1,64 @@
+
+package com.mycompany.lastpoe;
+import javax.swing.*;
+
+public class LastPoe {
+
+    public static void main(String[] args) {
+        String username, password, firstName, lastName, phoneNumber;
+
+        while (true) {
+            username = JOptionPane.showInputDialog("Enter Username (Must contain an underscore and be exactly 5 characters long):");
+            if (username == null) System.exit(0);
+            if (username.contains("_") && username.length() == 5) {
+                JOptionPane.showMessageDialog(null, "Username successfully captured");
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid username.");
+            }
+        }
+
+        while (true) {
+            password = JOptionPane.showInputDialog("Enter Password (8+ chars, 1 uppercase, 1 number, 1 special):");
+            if (password == null) System.exit(0);
+            if (Login.isValidPassword(password)) {
+                JOptionPane.showMessageDialog(null, "Password successfully captured");
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid password.");
+            }
+        }
+
+        firstName = JOptionPane.showInputDialog("Enter First Name:");
+        if (firstName == null) System.exit(0);
+
+        lastName = JOptionPane.showInputDialog("Enter Last Name:");
+        if (lastName == null) System.exit(0);
+
+        while (true) {
+            phoneNumber = JOptionPane.showInputDialog("Enter Phone Number (Starts with +27):");
+            if (phoneNumber == null) System.exit(0);
+            if (phoneNumber.matches("\\+27\\d{1,10}")) break;
+            JOptionPane.showMessageDialog(null, "Invalid phone number.");
+        }
+
+        Login loginSystem = new Login(username, password, firstName, lastName, phoneNumber);
+        JOptionPane.showMessageDialog(null, "Welcome to QuickChat!");
+
+        while (true) {
+            String loginUsername = JOptionPane.showInputDialog("Enter username:");
+            String loginPassword = JOptionPane.showInputDialog("Enter password:");
+
+            if (loginSystem.loginUser(loginUsername, loginPassword)) {
+                JOptionPane.showMessageDialog(null, "Welcome " + loginSystem.getFirstName() + " " + loginSystem.getLastName());
+                Messageapp.startMessaging();
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect login.");
+            }
+        }
+    }
+}
+
+
+//c
